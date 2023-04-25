@@ -9,10 +9,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Entity
-@NamedQueries({
-        @NamedQuery(name = "allBookings", query = "SELECT e from Booking e"),
-        @NamedQuery(name = "findByBookingDate",query = "SELECT e from Booking e where e.bookingDate = :bookingDate")
-})
 @Table(name = "booking")
 public class Booking {
 

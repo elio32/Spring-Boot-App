@@ -2,8 +2,12 @@ package com.lhind.internship.springbootfirstprogram.SpringBootApp.mapper;
 
 import com.lhind.internship.springbootfirstprogram.SpringBootApp.model.dto.UserDTO;
 import com.lhind.internship.springbootfirstprogram.SpringBootApp.model.entity.User;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserMapper extends AbstractMapper<User, UserDTO>{
+
     private final UserDetailsMapper userDetailsMapper;
 
     public UserMapper() {

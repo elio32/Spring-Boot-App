@@ -3,6 +3,7 @@ package com.lhind.internship.springbootfirstprogram.SpringBootApp.service.impl;
 import com.lhind.internship.springbootfirstprogram.SpringBootApp.mapper.UserMapper;
 import com.lhind.internship.springbootfirstprogram.SpringBootApp.model.dto.UserDTO;
 import com.lhind.internship.springbootfirstprogram.SpringBootApp.model.entity.User;
+import com.lhind.internship.springbootfirstprogram.SpringBootApp.model.entity.UserDetails;
 import com.lhind.internship.springbootfirstprogram.SpringBootApp.repository.UserRepository;
 import com.lhind.internship.springbootfirstprogram.SpringBootApp.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -27,8 +28,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(User user) {
-        userRepository.delete(user);
+    public void deleteUser(Long userId) {
+        userRepository.deleteById(userId);
     }
 
     @Override
@@ -42,5 +43,15 @@ public class UserServiceImpl implements UserService {
         return userRepository.saveNewUser(userDTO);
 
     }
+    @Override
+    public List<UserDTO> loadUsersByFlightId(Long flightId) {
+        List<User> users = userRepository.findUsersByFlightId(flightId);
+        return users.stream().map(userMapper::toDto).collect(Collectors.toList());
+    }
 
+    @Override
+    public User findAllByUserDetails(UserDetails userDetails) { //should be UserDTO
+        User user = userRepository.findAllByUserDetails(userDetails);
+        return (user);
+    }
 }

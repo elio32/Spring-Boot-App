@@ -10,10 +10,7 @@ import java.util.List;
 @Repository
 public interface BookingRepository extends JpaRepository<Booking,Long> {
     Booking findBookingById(Long id);
-
-    void delete(Long id);
     BookingDTO save(Long userId, BookingDTO booking);
-
     List<BookingDTO> findBookingByIdForUser(Long userId, Long bookingId);
 }
 

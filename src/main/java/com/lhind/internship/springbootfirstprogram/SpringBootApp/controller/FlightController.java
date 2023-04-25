@@ -42,7 +42,6 @@ public class FlightController {
     }
 
     //Update/create a flight
-    //duhet te jet flightDTO po me jep error
     @PostMapping
     public FlightDTO saveNewFlight(@RequestBody FlightDTO flightDTO) {
         return flightService.saveNewFlight(flightDTO);
