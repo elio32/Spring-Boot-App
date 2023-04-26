@@ -24,7 +24,7 @@ public class Booking {
     private BoookingStatusEnum status;
 
     @ManyToOne
-    @JoinColumn(name = "user_id",referencedColumnName = "id")
+    @JoinColumn(name = "user_id") // nje sek ta shof ne internet
     private User user;
 
     @ManyToMany

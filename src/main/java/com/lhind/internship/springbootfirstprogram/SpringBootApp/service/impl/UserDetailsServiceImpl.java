@@ -6,7 +6,6 @@ import com.lhind.internship.springbootfirstprogram.SpringBootApp.model.entity.Us
 import com.lhind.internship.springbootfirstprogram.SpringBootApp.repository.UserDetailsRepository;
 import com.lhind.internship.springbootfirstprogram.SpringBootApp.service.UserDetailsService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -12,9 +12,9 @@ public interface UserService {
     List<UserDTO> loadAllUsers();
     void deleteUser(Long userId) throws ChangeSetPersister.NotFoundException;
     UserDTO findUserById(Long id) throws ChangeSetPersister.NotFoundException;
-    UserDTO saveNewUser(UserDTO userDTO);
+    UserDTO saveNewUser(User user);
     List<UserDTO> loadUsersByFlightId(Long flightId);
 
-    User findAllByUserDetails(UserDetails userDetails);
+    UserDTO findAllByUserDetails(UserDetails userDetails);
 
 }

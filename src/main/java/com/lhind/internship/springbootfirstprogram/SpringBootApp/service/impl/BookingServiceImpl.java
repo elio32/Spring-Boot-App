@@ -3,23 +3,23 @@ package com.lhind.internship.springbootfirstprogram.SpringBootApp.service.impl;
 import com.lhind.internship.springbootfirstprogram.SpringBootApp.mapper.BookingMapper;
 import com.lhind.internship.springbootfirstprogram.SpringBootApp.model.dto.BookingDTO;
 import com.lhind.internship.springbootfirstprogram.SpringBootApp.model.entity.Booking;
+import com.lhind.internship.springbootfirstprogram.SpringBootApp.model.entity.User;
 import com.lhind.internship.springbootfirstprogram.SpringBootApp.repository.BookingRepository;
+import com.lhind.internship.springbootfirstprogram.SpringBootApp.repository.UserRepository;
 import com.lhind.internship.springbootfirstprogram.SpringBootApp.service.BookingService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
-
 public class BookingServiceImpl implements BookingService {
 
     private final BookingRepository bookingRepository;
     private final BookingMapper bookingMapper;
+    private final UserRepository userRepository;
 
 
     @Override
@@ -35,16 +35,16 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public Optional<Booking> findBookingById(Long id) {
-        if (bookingRepository.findById(id) == null)
-            throw new IllegalArgumentException("Booking with Id : " + id + " does not exist ");
-        return Optional.of(bookingRepository.findBookingById(id));
+    public BookingDTO findBookingById(Long id) { // kte e kishe optional
+
+        Booking booking = bookingRepository.findBookingById(id).orElseThrow(() -> new IllegalArgumentException("Booking with Id : " + id + " does not exist "));
+        return bookingMapper.toDto(booking);
 
     }
 
     @Override
-    public Booking saveNewBooking(Booking booking) {
-        return bookingRepository.save(booking);
+    public BookingDTO saveNewBooking(Booking booking) {
+        return bookingMapper.toDto(bookingRepository.save(booking));
 
     }
 
@@ -55,12 +55,20 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public BookingDTO saveNewBookingForUser(Long userId, BookingDTO bookingDTO) {
-        return bookingRepository.save(userId,bookingDTO);
+    public BookingDTO saveNewBookingForUser(Long userId, Booking booking) {
+        User user = userRepository.findById(userId).orElse(null);
+        booking.setUser(user);
+        booking = bookingRepository.save(booking);
+        return bookingMapper.toDto(booking);
     }
 
     @Override
-    public List<BookingDTO> findBookingByIdForUser(Long userId, Long bookingId) {
-        return bookingRepository.findBookingByIdForUser(userId,bookingId);
+    public List<BookingDTO> findBookingByUserIdAndId(Long userId, Long bookingId) {
+        List<Booking> bookingList = bookingRepository.findBookingByUserIdAndId(userId,bookingId);
+        List<BookingDTO> bookingDTOList = new ArrayList<BookingDTO>();
+        for (Booking book: bookingList) {
+            bookingDTOList.add(bookingMapper.toDto(book));
+        }
+        return bookingDTOList;
     }
 }

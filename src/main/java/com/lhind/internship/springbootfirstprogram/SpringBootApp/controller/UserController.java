@@ -1,28 +1,22 @@
 package com.lhind.internship.springbootfirstprogram.SpringBootApp.controller;
 
-
-import com.lhind.internship.springbootfirstprogram.SpringBootApp.mapper.UserMapper;
 import com.lhind.internship.springbootfirstprogram.SpringBootApp.model.dto.UserDTO;
+import com.lhind.internship.springbootfirstprogram.SpringBootApp.model.entity.User;
 import com.lhind.internship.springbootfirstprogram.SpringBootApp.service.UserService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @RestController
 @RequestMapping(path = "/user")
 public class UserController {
 
-    private final UserMapper userMapper;
     private final UserService userService;
 
-    public UserController(UserMapper userMapper, UserService userService) {
-        this.userMapper = userMapper;
+    public UserController( UserService userService) {
         this.userService = userService;
     }
 
@@ -42,10 +36,10 @@ public class UserController {
         }
     }
 
-    //CreateUpdate a user and their user details
+    //Create/Update a user and their user details
     @PostMapping
-    public ResponseEntity<UserDTO> saveNewUser(@RequestBody UserDTO userDTO) {
-        return ResponseEntity.ok(userService.saveNewUser(userDTO));
+    public ResponseEntity<UserDTO> saveNewUser(@RequestBody User user) {
+        return ResponseEntity.ok(userService.saveNewUser(user));
     }
 
     //delete a user and their details

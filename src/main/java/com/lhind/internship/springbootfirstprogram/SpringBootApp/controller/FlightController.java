@@ -29,22 +29,15 @@ public class FlightController {
     }
 
     //Get info for a specific flight
-    //Duhet te jet FlightDTO, por jep error
     @RequestMapping(method = RequestMethod.GET, path = "/{id}")
-    public Optional<ResponseEntity<Optional<Flight>>> findFlightById(@PathVariable(value = "id") Long id){
+    public Optional<ResponseEntity<Optional<FlightDTO>>> findFlightById(@PathVariable(value = "id") Long id){
         return Optional.of(ResponseEntity.ok(flightService.findFlightById(id)));
-//        try {
-//            return Optional.of(ResponseEntity.ok(flightService.findFlightById(id)));
-//        } catch (ChangeSetPersister.NotFoundException e) {
-//            return Optional.ofNullable(ResponseEntity.notFound().build());
-//        }
-//    }
     }
 
     //Update/create a flight
     @PostMapping
-    public FlightDTO saveNewFlight(@RequestBody FlightDTO flightDTO) {
-        return flightService.saveNewFlight(flightDTO);
+    public FlightDTO saveNewFlight(@RequestBody Flight flight) {
+        return flightService.saveNewFlight(flight);
     }
 
     //Delete a flight
@@ -52,8 +45,6 @@ public class FlightController {
     public void deleteFlight( @PathVariable Long flightId){
         flightService.deleteFlight(flightId);
     }
-
-    //?
     //Get all flights departing on a specific date from a specific airport
     @GetMapping(path = "{origin}/{departure_date}")
     public List<FlightDTO> getFlightsByOriginAndDepartureDate(@PathVariable(value = "departure_date") Date departureDate, @PathVariable(value = "origin") String origin) {

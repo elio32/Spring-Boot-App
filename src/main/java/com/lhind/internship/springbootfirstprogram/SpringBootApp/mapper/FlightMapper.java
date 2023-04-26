@@ -2,7 +2,9 @@ package com.lhind.internship.springbootfirstprogram.SpringBootApp.mapper;
 
 import com.lhind.internship.springbootfirstprogram.SpringBootApp.model.dto.FlightDTO;
 import com.lhind.internship.springbootfirstprogram.SpringBootApp.model.entity.Flight;
+import org.springframework.stereotype.Component;
 
+@Component
 public class FlightMapper extends AbstractMapper<Flight, FlightDTO>{
     @Override
     public Flight toEntity(FlightDTO flightDTO) {

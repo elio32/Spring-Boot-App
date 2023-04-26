@@ -10,8 +10,8 @@ import java.util.Optional;
 public interface FlightService {
     List<FlightDTO> loadAllFlights();
     void deleteFlight(Long id);
-    Optional<Flight> findFlightById(Long id);
-    FlightDTO saveNewFlight(FlightDTO flightDTO);
+    Optional<FlightDTO> findFlightById(Long id);
+    FlightDTO saveNewFlight(Flight flight);
     FlightDTO findByOrigin(String origin);
     List<FlightDTO> findFlightsByDateAndOrigin(Date departureDate, String origin);
 

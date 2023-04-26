@@ -28,21 +28,21 @@ public class FlightServiceImpl implements FlightService {
 
     @Override
     public void deleteFlight(Long id) {
-        flightRepository.delete(id);
+        flightRepository.deleteById(id);
 
     }
 
     @Override
-    public Optional<Flight> findFlightById(Long id) {
-        if (flightRepository.findById(id) == null)
-            throw new IllegalArgumentException("Flight with Id : " + id + " does not exist ");
-        return Optional.of(flightRepository.findById(id).get());
+    public Optional<FlightDTO> findFlightById(Long id) {
+        Flight flight = flightRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Booking with Id : " + id + " does not exist "));
+        return Optional.of(flightMapper.toDto(flight));
 
     }
 
     @Override
-    public FlightDTO saveNewFlight(FlightDTO flightDTO) {
-        return flightRepository.saveFlight(flightDTO);
+    public FlightDTO saveNewFlight(Flight flight) {
+        flight = flightRepository.save(flight);
+        return flightMapper.toDto(flight);
 
     }
 

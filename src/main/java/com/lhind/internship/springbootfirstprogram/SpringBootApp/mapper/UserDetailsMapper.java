@@ -2,7 +2,9 @@ package com.lhind.internship.springbootfirstprogram.SpringBootApp.mapper;
 
 import com.lhind.internship.springbootfirstprogram.SpringBootApp.model.dto.UserDetailsDTO;
 import com.lhind.internship.springbootfirstprogram.SpringBootApp.model.entity.UserDetails;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserDetailsMapper extends AbstractMapper<UserDetails, UserDetailsDTO>{
     @Override
     public UserDetails toEntity(UserDetailsDTO userDetailsDTO) {

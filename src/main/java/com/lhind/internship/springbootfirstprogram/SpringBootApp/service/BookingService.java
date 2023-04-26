@@ -5,18 +5,17 @@ import com.lhind.internship.springbootfirstprogram.SpringBootApp.model.dto.Booki
 import com.lhind.internship.springbootfirstprogram.SpringBootApp.model.entity.Booking;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface BookingService {
     List<BookingDTO> loadAllBookings();
     void deleteBooking(Long id);
-    Optional<Booking> findBookingById(Long id);
-    Booking saveNewBooking(Booking booking);
+    BookingDTO findBookingById(Long id);
+    BookingDTO saveNewBooking(Booking booking);
 
     List<BookingDTO> showAllBookings(Long id);
 
-    BookingDTO saveNewBookingForUser(Long userId, BookingDTO bookingDTO);
+    BookingDTO saveNewBookingForUser(Long userId, Booking booking);
 
 
-    List<BookingDTO> findBookingByIdForUser(Long userId, Long bookingId);
+    List<BookingDTO> findBookingByUserIdAndId(Long userId, Long bookingId);
 }

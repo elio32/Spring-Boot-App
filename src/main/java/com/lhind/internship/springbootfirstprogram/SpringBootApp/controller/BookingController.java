@@ -22,13 +22,13 @@ public class BookingController {
 
     //Delete a booking
     @RequestMapping(method = RequestMethod.DELETE,path = "/{id}")
-    public void deleteBooking(@PathVariable(value = "id") Long id){
+    public ResponseEntity<Void> deleteBooking(@PathVariable(value = "id") Long id){
         bookingService.deleteBooking(id);
+        return ResponseEntity.status(200).build();
     }
 
 
     //    Get all bookings ordered by booking date
-    //Se di nqs eshte e sakte apo jo
     @GetMapping
     public ResponseEntity<List<BookingDTO>> getAllBookings(){
         return ResponseEntity.ok(bookingService.loadAllBookings());
@@ -48,14 +48,14 @@ public class BookingController {
 
     // Get a specific booking for a specific user
     @GetMapping("{userId}/{bookingId}")
-    public List<BookingDTO> getBookingForUser(@PathVariable(value = "userId") Long userId, @PathVariable(value = "bookingId") Long bookingId) {
-        return bookingService.findBookingByIdForUser(userId, bookingId);
+    public ResponseEntity<List<BookingDTO>> getBookingForUser(@PathVariable(value = "userId") Long userId, @PathVariable(value = "bookingId") Long bookingId) {
+        return ResponseEntity.ok(bookingService.findBookingByUserIdAndId(userId, bookingId));
     }
 
     // Create/Update a booking for a user
     @PostMapping("/{userId}")
-    public BookingDTO createBookingForUser(@PathVariable(value = "userId") Long userId, @RequestBody BookingDTO bookingDTO) {
-        return bookingService.saveNewBookingForUser(userId, bookingDTO);
+    public ResponseEntity<BookingDTO> createBookingForUser(@PathVariable(value = "userId") Long userId, @RequestBody Booking booking) {
+        return ResponseEntity.ok(bookingService.saveNewBookingForUser(userId, booking));
     }
 
 }

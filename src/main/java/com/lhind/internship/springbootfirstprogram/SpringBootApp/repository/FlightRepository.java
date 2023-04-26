@@ -16,9 +16,6 @@ public interface FlightRepository extends JpaRepository<Flight,Long> {
     @Query(value = "SELECT * from Flight WHERE origin =: origin",nativeQuery = true)
     FlightDTO findByOrigin(@Param("origin") String origin);
 
-    void delete(Long id);
     List<Flight> findByDepartureDateAndOrigin(Date departureDate, String origin);
-    FlightDTO saveFlight(FlightDTO flightDTO);
-
 
 }

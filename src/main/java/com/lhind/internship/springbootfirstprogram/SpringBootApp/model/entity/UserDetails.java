@@ -22,7 +22,7 @@ public class UserDetails {
     private String phoneNumber;
 
     @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "ïd")
+    @JoinColumn(name = "user_id")
     private User user;
 
     public UserDetails() {

@@ -2,7 +2,9 @@ package com.lhind.internship.springbootfirstprogram.SpringBootApp.mapper;
 
 import com.lhind.internship.springbootfirstprogram.SpringBootApp.model.dto.BookingDTO;
 import com.lhind.internship.springbootfirstprogram.SpringBootApp.model.entity.Booking;
+import org.springframework.stereotype.Component;
 
+@Component
 public class BookingMapper extends AbstractMapper<Booking, BookingDTO>{
     @Override
     public Booking toEntity(BookingDTO bookingDTO) {

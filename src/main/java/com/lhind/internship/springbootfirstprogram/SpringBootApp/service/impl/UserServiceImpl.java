@@ -34,24 +34,23 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO findUserById(Long id) throws ChangeSetPersister.NotFoundException {
-        return (UserDTO) userRepository.findById(id).stream().map(userMapper::toDto).collect(Collectors.toList());  //Nuk duhet ber cast, por me jep error nqs se bej
-//        return userRepository.findById(id);
+        return (UserDTO) userRepository.findById(id).stream().map(userMapper::toDto).collect(Collectors.toList());
     }
 
     @Override
-    public UserDTO saveNewUser(UserDTO userDTO) {
-        return userRepository.saveNewUser(userDTO);
+    public UserDTO saveNewUser(User user) {
+        user = userRepository.save(user);
+        return userMapper.toDto(user);
 
     }
     @Override
     public List<UserDTO> loadUsersByFlightId(Long flightId) {
-        List<User> users = userRepository.findUsersByFlightId(flightId);
-        return users.stream().map(userMapper::toDto).collect(Collectors.toList());
+        return userRepository.findUsersByFlightId(flightId).stream().map(userMapper::toDto).collect(Collectors.toList());
     }
 
     @Override
-    public User findAllByUserDetails(UserDetails userDetails) { //should be UserDTO
+    public UserDTO findAllByUserDetails(UserDetails userDetails) {
         User user = userRepository.findAllByUserDetails(userDetails);
-        return (user);
+        return userMapper.toDto(user);
     }
 }
