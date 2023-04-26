@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,9 +32,9 @@ public class FlightServiceImpl implements FlightService {
     }
 
     @Override
-    public Optional<FlightDTO> findFlightById(Long id) {
+    public FlightDTO findFlightById(Long id) {
         Flight flight = flightRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Booking with Id : " + id + " does not exist "));
-        return Optional.of(flightMapper.toDto(flight));
+        return flightMapper.toDto(flight);
 
     }
 

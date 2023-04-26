@@ -5,12 +5,11 @@ import com.lhind.internship.springbootfirstprogram.SpringBootApp.model.entity.Fl
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 public interface FlightService {
     List<FlightDTO> loadAllFlights();
     void deleteFlight(Long id);
-    Optional<FlightDTO> findFlightById(Long id);
+    FlightDTO findFlightById(Long id);
     FlightDTO saveNewFlight(Flight flight);
     FlightDTO findByOrigin(String origin);
     List<FlightDTO> findFlightsByDateAndOrigin(Date departureDate, String origin);
