@@ -34,7 +34,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO findUserById(Long id) throws ChangeSetPersister.NotFoundException {
-        return (UserDTO) userRepository.findById(id).stream().map(userMapper::toDto).collect(Collectors.toList());
+        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("User with Id : " + id + " does not exist "));
+        return userMapper.toDto(user);
     }
 
     @Override

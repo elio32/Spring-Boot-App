@@ -35,7 +35,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public BookingDTO findBookingById(Long id) { // kte e kishe optional
+    public BookingDTO findBookingById(Long id) {
 
         Booking booking = bookingRepository.findBookingById(id).orElseThrow(() -> new IllegalArgumentException("Booking with Id : " + id + " does not exist "));
         return bookingMapper.toDto(booking);
