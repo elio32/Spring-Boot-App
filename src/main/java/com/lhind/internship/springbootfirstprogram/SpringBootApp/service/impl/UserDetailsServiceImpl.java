@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
@@ -34,15 +33,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Override
-    public Optional<UserDetails> findUserDetailsById(Long id) {
-        if (userDetailsRepository.findById(id) == null)
-            throw new IllegalArgumentException("UserDetails with Id : " + id + " does not exist ");
-        return Optional.of(userDetailsRepository.findById(id).get());
+    public UserDetailsDTO findUserDetailsById(Long id) {
+        UserDetails userDetails = userDetailsRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("User with Id : " + id + " does not exist "));
+        return userDetailsMapper.toDto(userDetails);
 
     }
 
     @Override
-    public UserDetails saveNewUserDetails(UserDetails userDetails) {
-        return userDetailsRepository.save(userDetails);
+    public UserDetailsDTO saveNewUserDetails(UserDetails userDetails) {
+        userDetails = userDetailsRepository.save(userDetails);
+        return userDetailsMapper.toDto(userDetails);
     }
 }
