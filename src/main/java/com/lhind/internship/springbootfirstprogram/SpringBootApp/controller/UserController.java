@@ -49,8 +49,8 @@ public class UserController {
         return ResponseEntity.status(200).build();
     }
     //Get all users and their user details who have booked on a specific flight
-    @GetMapping("/users/flight/{flightId}")
-    public ResponseEntity<List<UserDTO>> getUsersByFlight(@PathVariable("flightId") Long flightId) {
+    @GetMapping("/user/flight/{id}")
+    public ResponseEntity<List<UserDTO>> getUsersByFlight(@PathVariable("id") Long flightId) {
        return ResponseEntity.ok(userService.loadUsersByFlightId(flightId));
 
     }
