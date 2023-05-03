@@ -10,33 +10,37 @@ import java.util.List;
 
 @Component
 @Entity
-@NamedQueries({
-        @NamedQuery(name = "allFlights", query = "SELECT e from Flight e"),
-        @NamedQuery(name = "findByOrigin",query = "SELECT e from Flight e where e.origin = :origin")
-})
 @Table(name = "flight")
 public class Flight {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id",nullable = false,unique = true)
     private Long id;
-    @Column(name = "origin",nullable = false,unique = true)
+
+    @Column(name = "origin")
     private String origin;
-    @Column(name = "destination",nullable = false,unique = true)
+
+    @Column(name = "destination")
     private String destination;
-    @Column(name = "airline",nullable = false,unique = true)
+
+    @Column(name = "airline")
     private String airline;
-    @Column(name = "flight_number",nullable = false,unique = true)
+
+    @Column(name = "flight_number")
     private String flightNumber;
-    @Column(name = "departure_date",nullable = false,unique = true)
+
+    @Column(name = "departure_date")
     @Temporal(value = TemporalType.DATE)
     private Date departureDate;
-    @Column(name = "arrival_date",nullable = false,unique = true)
+
+    @Column(name = "arrival_date")
     @Temporal(value = TemporalType.DATE)
     private Date arrivalDate;
-    @Column(name = "status",nullable = false,unique = true)
+
+    @Column(name = "status")
     @Enumerated(value = EnumType.STRING)
     private FlightStatusEnum status;
+
     @ManyToMany(mappedBy = "flights",cascade = CascadeType.ALL)
     private List<Booking> bookings;
 

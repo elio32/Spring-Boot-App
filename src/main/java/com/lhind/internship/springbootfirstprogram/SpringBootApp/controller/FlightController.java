@@ -4,6 +4,7 @@ import com.lhind.internship.springbootfirstprogram.SpringBootApp.model.dto.Fligh
 import com.lhind.internship.springbootfirstprogram.SpringBootApp.model.entity.Flight;
 import com.lhind.internship.springbootfirstprogram.SpringBootApp.service.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,7 +48,7 @@ public class FlightController {
     }
     //Get all flights departing on a specific date from a specific airport
     @GetMapping(path = "{origin}/{departure_date}")
-    public ResponseEntity<List<FlightDTO>> getFlightsByOriginAndDepartureDate(@PathVariable(value = "departure_date") Date departureDate, @PathVariable(value = "origin") String origin) {
+    public ResponseEntity<List<FlightDTO>> getFlightsByOriginAndDepartureDate(@PathVariable(value = "departure_date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date departureDate, @PathVariable(value = "origin") String origin) {
         return ResponseEntity.ok(flightService.findFlightsByDateAndOrigin(departureDate,origin));
     }
 }

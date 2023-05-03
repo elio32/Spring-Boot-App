@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @RestController
@@ -31,8 +33,9 @@ public class BookingController {
     //    Get all bookings ordered by booking date
     @GetMapping
     public ResponseEntity<List<BookingDTO>> getAllBookings(){
-        return ResponseEntity.ok(bookingService.loadAllBookings());
-    }
+        List<BookingDTO> bookings = bookingService.loadAllBookings();
+        Collections.sort(bookings, Comparator.comparing(BookingDTO::getBookingDate));
+        return ResponseEntity.ok(bookings);    }
 
     // Get all booking of a user
     @GetMapping("/user/{id}")
@@ -40,16 +43,17 @@ public class BookingController {
         return ResponseEntity.ok(bookingService.showAllBookings(id));
     }
 
-    // Get all bookings on a flight
-    @GetMapping("/flight/{flightId}")
-    public ResponseEntity<List<BookingDTO>> getAllBookingsOnFlight(@PathVariable(value = "flightId") Long flightId) {
-        return ResponseEntity.ok(bookingService.showAllBookings(flightId));
+    // Get a specific booking for a specific user
+    @GetMapping("{bookingId}/{userId}")
+    public ResponseEntity<List<BookingDTO>> getBookingForUser(@PathVariable(value = "userId") Long userId, @PathVariable(value = "bookingId") Long bookingId) {
+
+        return ResponseEntity.ok(bookingService.findBookingByUserIdAndId(userId, bookingId));
     }
 
-    // Get a specific booking for a specific user
-    @GetMapping("{userId}/{bookingId}")
-    public ResponseEntity<List<BookingDTO>> getBookingForUser(@PathVariable(value = "userId") Long userId, @PathVariable(value = "bookingId") Long bookingId) {
-        return ResponseEntity.ok(bookingService.findBookingByUserIdAndId(userId, bookingId));
+    // Get all bookings on a flight
+    @GetMapping("/booking/flight/{flightId}")
+    public ResponseEntity<List<BookingDTO>> getAllBookingsOnFlight(@PathVariable(value = "flightId") Long flightId) {
+        return ResponseEntity.ok(bookingService.showAllBookings(flightId));
     }
 
     // Create/Update a booking for a user

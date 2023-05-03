@@ -1,9 +1,15 @@
 package com.lhind.internship.springbootfirstprogram.SpringBootApp.model.dto;
 
 import com.lhind.internship.springbootfirstprogram.SpringBootApp.model.enums.UserRoleEnum;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserDTO {
     private Long id;
     private String username;
@@ -11,16 +17,6 @@ public class UserDTO {
     private UserRoleEnum role;
     private UserDetailsDTO userDetailsDTO;
 
-    public UserDTO() {
-    }
-
-    public UserDTO(Long id, String username, String password, UserRoleEnum role, UserDetailsDTO userDetailsDTO) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.role = role;
-        this.userDetailsDTO = userDetailsDTO;
-    }
 
     public Long getId() {
         return id;

@@ -5,10 +5,12 @@ import java.util.List;
 
 import com.lhind.internship.springbootfirstprogram.SpringBootApp.model.enums.BoookingStatusEnum;
 import jakarta.persistence.*;
+import lombok.Data;
 import org.springframework.stereotype.Component;
 
 @Component
 @Entity
+@Data
 @Table(name = "booking")
 public class Booking {
 
@@ -24,7 +26,7 @@ public class Booking {
     private BoookingStatusEnum status;
 
     @ManyToOne
-    @JoinColumn(name = "user_id") // nje sek ta shof ne internet
+    @JoinColumn(name = "user_id",nullable = false)
     private User user;
 
     @ManyToMany

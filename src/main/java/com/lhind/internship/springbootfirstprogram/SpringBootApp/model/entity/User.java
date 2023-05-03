@@ -2,11 +2,10 @@ package com.lhind.internship.springbootfirstprogram.SpringBootApp.model.entity;
 
 import com.lhind.internship.springbootfirstprogram.SpringBootApp.model.enums.UserRoleEnum;
 import jakarta.persistence.*;
-import org.springframework.stereotype.Component;
+
 
 import java.util.List;
 
-@Component
 @Entity
 @Table(name = "user")
 public class User {
@@ -15,7 +14,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id",nullable = false,unique = true)
     private Long id;
-    @Column(name = "username",nullable = false,unique = true)
+    @Column(name = "username",nullable = false)
     private String username;
     @Column(name = "password",nullable = false)
     private String password;
