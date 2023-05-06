@@ -5,13 +5,15 @@ import java.util.List;
 
 import com.lhind.internship.springbootfirstprogram.SpringBootApp.model.enums.BoookingStatusEnum;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.stereotype.Component;
+import lombok.NoArgsConstructor;
 
-@Component
 @Entity
 @Data
 @Table(name = "booking")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Booking {
 
     @Id
@@ -36,59 +38,4 @@ public class Booking {
             inverseJoinColumns = @JoinColumn(name = "flight_id",referencedColumnName = "id")
     )
     private List<Flight> flights;
-
-    public Booking() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Date getBookingDate() {
-        return bookingDate;
-    }
-
-    public void setBookingDate(Date bookingDate) {
-        this.bookingDate = bookingDate;
-    }
-
-    public BoookingStatusEnum getStatus() {
-        return status;
-    }
-
-    public void setStatus(BoookingStatusEnum status) {
-        this.status = status;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public List<Flight> getFlights() {
-        return flights;
-    }
-
-    public void setFlights(List<Flight> flights) {
-        this.flights = flights;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Booking{" +
-                "id=" + id +
-                ", bookingDate=" + bookingDate +
-                ", status=" + status +
-                ", user=" + user +
-                ", flights=" + flights +
-                '}';
-    }
 }
