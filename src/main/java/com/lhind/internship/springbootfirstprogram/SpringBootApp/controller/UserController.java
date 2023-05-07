@@ -5,6 +5,7 @@ import com.lhind.internship.springbootfirstprogram.SpringBootApp.model.entity.Us
 import com.lhind.internship.springbootfirstprogram.SpringBootApp.service.UserService;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class UserController {
     }
 
     //    Get all users
+    @PreAuthorize(value = "hasAnyRole('ADMIN')")
     @GetMapping
     public ResponseEntity <List<UserDTO>> findAll(){
         return ResponseEntity.ok(userService.loadAllUsers());
