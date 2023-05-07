@@ -22,7 +22,7 @@ public class UserController {
     }
 
     //    Get all users
-    @PreAuthorize(value = "hasAnyRole('ADMIN')")
+    @PreAuthorize(value = "hasAnyRole('MANAGER')")
     @GetMapping
     public ResponseEntity <List<UserDTO>> findAll(){
         return ResponseEntity.ok(userService.loadAllUsers());
