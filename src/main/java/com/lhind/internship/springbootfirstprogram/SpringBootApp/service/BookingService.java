@@ -16,6 +16,5 @@ public interface BookingService {
 
     BookingDTO saveNewBookingForUser(Long userId, Booking booking);
 
-
     List<BookingDTO> findBookingByUserIdAndId(Long userId, Long bookingId);
 }
