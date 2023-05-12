@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.List;
 
 @Component
 @Data
@@ -15,6 +16,9 @@ public class BookingDTO {
     private Long id;
     private Date bookingDate;
     private BoookingStatusEnum status;
+
+    private List<FlightDTO> flights;
+
 
 }
 

@@ -1,6 +1,6 @@
 package com.lhind.internship.springbootfirstprogram.SpringBootApp.config;
 
-import com.lhind.internship.springbootfirstprogram.SpringBootApp.service.TokenService;
+import com.lhind.internship.springbootfirstprogram.SpringBootApp.service.impl.TokenServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,34 +20,41 @@ import java.io.IOException;
 public class TokenFilter extends OncePerRequestFilter {
 
     private final UserDetailsService userDetailsService;
-    private final TokenService tokenService;
+    private final TokenServiceImpl tokenService;
 
-    public TokenFilter(UserDetailsService userDetailsService, TokenService tokenService) {
+    public TokenFilter(UserDetailsService userDetailsService, TokenServiceImpl tokenService) {
         this.userDetailsService = userDetailsService;
         this.tokenService = tokenService;
     }
 
     @Override
-    protected void doFilterInternal(final HttpServletRequest request,
-                                    @NonNull final HttpServletResponse response,
-                                    @NonNull final FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(
+            @NonNull HttpServletRequest request,
+            @NonNull final HttpServletResponse response,
+            @NonNull final FilterChain filterChain
+    ) throws ServletException, IOException {
         final String authorizationHeader = request.getHeader("Authorization");
-
-        String username = null;
-        String token = null;
-
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            token = authorizationHeader.substring(7);
-            username = tokenService.extractUsername(token);
+        final String username;
+        final String token;
+        //check if header is null and Bearer token to not execute the rest of code
+        if (authorizationHeader == null ||!authorizationHeader.startsWith("Bearer ")) {
+            filterChain.doFilter(request, response);
+            return;
         }
 
+        token = authorizationHeader.substring(7);
+        username = tokenService.extractUsername(token);
+
+        //if user is not connected
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             final UserDetails userDetails = userDetailsService.loadUserByUsername(username);
             if (tokenService.validateToken(token, userDetails)) {
-                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                        userDetails, null, userDetails.getAuthorities());
-                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authToken);
+                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                        userDetails,
+                        null,
+                        userDetails.getAuthorities());
+                authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(authenticationToken);//update user token
             }
         }
         filterChain.doFilter(request, response);

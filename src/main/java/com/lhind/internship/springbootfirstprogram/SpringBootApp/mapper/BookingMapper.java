@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class BookingMapper extends AbstractMapper<Booking, BookingDTO>{
 
-   // private final FlightMapper flightMapper;
+    private final FlightMapper flightMapper;
     @Override
     public Booking toEntity(BookingDTO bookingDTO) {
         Booking booking = new Booking();
@@ -29,10 +29,10 @@ public class BookingMapper extends AbstractMapper<Booking, BookingDTO>{
         bookingDTO.setId(booking.getId());
         bookingDTO.setBookingDate(booking.getBookingDate());
         bookingDTO.setStatus(booking.getStatus());
-//        List<FlightDTO> flightDTO = booking.getFlights().stream()
-//                .map(flightMapper::toDto)
-//                .collect(Collectors.toList());
-//        booking.setFlights(flightDTO);
+        List<FlightDTO> flightDTO = booking.getFlights().stream()
+                .map(flightMapper::toDto)
+                .collect(Collectors.toList());
+        bookingDTO.setFlights(flightDTO);
         return bookingDTO;
     }
 }

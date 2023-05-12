@@ -6,11 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserMapper extends AbstractMapper<User, UserDTO>{
-
-    private final UserDetailsMapper userDetailsMapper;
-
     public UserMapper() {
-        this.userDetailsMapper = new UserDetailsMapper();
     }
 
     @Override
@@ -18,9 +14,11 @@ public class UserMapper extends AbstractMapper<User, UserDTO>{
         User user = new User();
         user.setId(userDTO.getId());
         user.setUsername(userDTO.getUsername());
-        user.setPassword(userDTO.getPassword());
         user.setRole(userDTO.getRole());
-        user.setUserDetails(userDetailsMapper.toEntity(userDTO.getUserDetailsDTO()));
+        user.setFirstName(userDTO.getFirstName());
+        user.setLastName(userDTO.getLastName());
+        user.setEmail(userDTO.getEmail());
+        user.setPhoneNumber(userDTO.getPhoneNumber());
         return user;
     }
     @Override
@@ -31,9 +29,11 @@ public class UserMapper extends AbstractMapper<User, UserDTO>{
         UserDTO userDTO = new UserDTO();
         userDTO.setId(user.getId());
         userDTO.setUsername(user.getUsername());
-        userDTO.setPassword(user.getPassword());
         userDTO.setRole(user.getRole());
-        userDTO.setUserDetailsDTO(userDetailsMapper.toDto(user.getUserDetails()));
+        userDTO.setFirstName(user.getFirstName());
+        userDTO.setLastName(user.getLastName());
+        userDTO.setEmail(user.getEmail());
+        userDTO.setPhoneNumber(user.getPhoneNumber());
         return userDTO;
     }
 }
