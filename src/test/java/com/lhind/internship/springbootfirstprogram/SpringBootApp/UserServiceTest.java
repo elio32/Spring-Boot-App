@@ -48,14 +48,14 @@ import static org.mockito.Mockito.when;
 
             when(userRepository.findAll()).thenReturn(userList);
 
-            UserDTO userDto1 = new UserDTO(null,"John", UserRoleEnum.MANAGER, "Jo","Do","johndoe@example.com","576576567");
-            UserDTO userDto2 = new UserDTO(null,"John", UserRoleEnum.USER, "Jo","Do","johndoe@example.com","576576567");
+            UserDTO userDTO1 = new UserDTO(null,"John", UserRoleEnum.MANAGER, "Jo","Do","johndoe@example.com","576576567");
+            UserDTO userDTO2 = new UserDTO(null,"John", UserRoleEnum.USER, "Jo","Do","johndoe@example.com","576576567");
             List<UserDTO> expectedUserDtoList = new ArrayList<>();
-            expectedUserDtoList.add(userDto1);
-            expectedUserDtoList.add(userDto2);
+            expectedUserDtoList.add(userDTO1);
+            expectedUserDtoList.add(userDTO2);
 
-            when(userMapper.toDto(user1)).thenReturn(userDto1);
-            when(userMapper.toDto(user2)).thenReturn(userDto2);
+            when(userMapper.toDto(user1)).thenReturn(userDTO1);
+            when(userMapper.toDto(user2)).thenReturn(userDTO2);
 
             List<UserDTO> actualUserDtoList = userService.loadAllUsers();
             assertEquals(expectedUserDtoList, actualUserDtoList);

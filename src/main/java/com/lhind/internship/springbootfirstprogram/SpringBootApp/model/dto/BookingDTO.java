@@ -16,7 +16,6 @@ public class BookingDTO {
     private Long id;
     private Date bookingDate;
     private BoookingStatusEnum status;
-
     private List<FlightDTO> flights;
 
 

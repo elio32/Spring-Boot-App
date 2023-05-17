@@ -64,7 +64,7 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public List<BookingDTO> findBookingByUserIdAndId(Long userId, Long bookingId) {
-        List<Booking> bookingList = bookingRepository.findByIdAndUserId(userId,bookingId);
+        List<Booking> bookingList = bookingRepository.findBookingByIdAndUserId(userId,bookingId);
         List<BookingDTO> bookingDTOList = new ArrayList<>();
         for (Booking book: bookingList) {
             bookingDTOList.add(bookingMapper.toDto(book));

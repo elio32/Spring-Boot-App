@@ -1,12 +1,12 @@
 package com.lhind.internship.springbootfirstprogram.SpringBootApp.service.impl;
 
+import com.lhind.internship.springbootfirstprogram.SpringBootApp.exception.UserNotFoundException;
 import com.lhind.internship.springbootfirstprogram.SpringBootApp.mapper.UserMapper;
 import com.lhind.internship.springbootfirstprogram.SpringBootApp.model.dto.UserDTO;
 import com.lhind.internship.springbootfirstprogram.SpringBootApp.model.entity.User;
 import com.lhind.internship.springbootfirstprogram.SpringBootApp.repository.UserRepository;
 import com.lhind.internship.springbootfirstprogram.SpringBootApp.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -29,13 +29,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(Long userId) {
+    public void deleteUser(Long userId){
         userRepository.deleteById(userId);
     }
 
     @Override
-    public UserDTO findUserById(Long id) throws ChangeSetPersister.NotFoundException {
-        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("User with Id : " + id + " does not exist "));
+    public UserDTO findUserById(Long id) throws UserNotFoundException {
+        User user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
         return userMapper.toDto(user);
     }
     @Override

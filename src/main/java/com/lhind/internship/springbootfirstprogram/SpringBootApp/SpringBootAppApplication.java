@@ -22,8 +22,6 @@ public class SpringBootAppApplication {
 //			userTest.setUsername("testUser1");
 //			userTest.setPassword("Test");
 //			userTest.setRole(UserRoleEnum.USER);
-//			UserDetails userDetails = new UserDetails(null, "First", "Last", "Email", "1234", userTest);
-////			userTest.setUserDetails(userDetails);
 //			userService.saveNewUser(userTest);
 //		};
 //	}

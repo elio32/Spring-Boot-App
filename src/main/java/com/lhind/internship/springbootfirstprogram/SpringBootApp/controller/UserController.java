@@ -1,9 +1,9 @@
 package com.lhind.internship.springbootfirstprogram.SpringBootApp.controller;
 
+import com.lhind.internship.springbootfirstprogram.SpringBootApp.exception.UserNotFoundException;
 import com.lhind.internship.springbootfirstprogram.SpringBootApp.model.dto.UserDTO;
 import com.lhind.internship.springbootfirstprogram.SpringBootApp.model.entity.User;
 import com.lhind.internship.springbootfirstprogram.SpringBootApp.service.UserService;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -30,23 +30,19 @@ public class UserController {
 
     //Get a specific user and their user details
     @RequestMapping(method = RequestMethod.GET, path = "/{id}")
-    public ResponseEntity<UserDTO> findUserById(@PathVariable(value = "id") Long id){
-        try {
+    public ResponseEntity<UserDTO> findUserById(@PathVariable(value = "id") Long id) throws UserNotFoundException{
             return ResponseEntity.ok(userService.findUserById(id));
-        } catch (ChangeSetPersister.NotFoundException e) {
-            return ResponseEntity.notFound().build();
-        }
     }
 
     //Create/Update a user and their user details
-    @PostMapping
+    @PostMapping("/save")
     public ResponseEntity<UserDTO> saveNewUser(@RequestBody User user) {
         return ResponseEntity.ok(userService.saveNewUser(user));
     }
 
     //delete a user and their details
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Void> deleteUserAndTheirDetails( @PathVariable(value = "id") Long userId) throws ChangeSetPersister.NotFoundException {
+    public ResponseEntity<Void> deleteUserAndTheirDetails( @PathVariable(value = "id") Long userId){
         userService.deleteUser(userId);
         return ResponseEntity.status(200).build();
     }

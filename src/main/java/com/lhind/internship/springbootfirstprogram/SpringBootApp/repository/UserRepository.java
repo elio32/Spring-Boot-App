@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User,Long> {
-    @Query(value = "SELECT * FROM User  JOIN Flight  WHERE Flight.id = :flightId",nativeQuery = true)
+    @Query(value = "SELECT * FROM user  JOIN flight  WHERE flight.id = :flightId",nativeQuery = true)
     List<User> findUsersByFlightId(@Param("flightId") Long flightId);
 
     Optional<User> findByUsername(String username);
